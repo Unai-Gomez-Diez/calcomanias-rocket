@@ -30,9 +30,15 @@ class DecalXmlLocalDataSource(
 
     override fun getDecal(id: String): Either<ErrorApp, Decal> {
         return try {
-
+            val mapDecal = sharedPref.all as Map<String, String>
+            val decal = mapDecal.values.map {
+                jsonSerialization.fromJson(it, Decal::class.java)
+            }.find { decal ->
+                decal.id == id
+            }!!
+            decal.right()
         }catch (e: Exception){
-
+            ErrorApp.DatabaseErrorApp.left()
         }
     }
 

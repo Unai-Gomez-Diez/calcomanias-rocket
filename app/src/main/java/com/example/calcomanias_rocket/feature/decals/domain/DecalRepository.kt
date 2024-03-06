@@ -8,5 +8,5 @@ interface DecalRepository {
 
     suspend fun getDecalUseCase(id: String): Either<ErrorApp, Decal>
 
-    suspend fun setDecalUseCase(decal: Decal): Either<ErrorApp, Boolean>
+
 }
