@@ -1,4 +1,4 @@
-package com.example.calcomanias_rocket.feature.decals.app.errors
+package com.example.calcomanias_rocket.app.errors
 
 sealed class ErrorApp {
     object InternetErrorApp : ErrorApp()

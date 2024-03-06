@@ -1,4 +1,4 @@
-package com.example.calcomanias_rocket.feature.decals.app.domain
+package com.example.calcomanias_rocket.app.domain
 
 sealed class Either<out L, out R> {
 
