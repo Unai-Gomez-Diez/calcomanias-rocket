@@ -46,6 +46,9 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.code.gson:gson:2.10.1")
+    //Preference
+    val preferenceVersion = "1.2.1"
+    implementation("androidx.preference:preference-ktx:$preferenceVersion")
     //ViewModel & liveData
     implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
