@@ -10,7 +10,7 @@ class DecalsViewHoldes(val view: View): RecyclerView.ViewHolder(view) {
 
     fun bind(decal: Decal, onClick: (String)->Unit){
         itemDecal.apply {
-
+            imagen.loa
         }
     }
 }
