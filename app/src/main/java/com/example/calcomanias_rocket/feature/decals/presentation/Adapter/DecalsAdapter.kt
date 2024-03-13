@@ -24,9 +24,9 @@ class DecalsAdapter : androidx.recyclerview.widget.ListAdapter<Decal,DecalsViewH
     }
 
     override fun onBindViewHolder(holder: DecalsViewHolder, position: Int) {
-        holder.bind(dataSet[position], onCLick)
+        holder.bind(currentList[position], onCLick)
     }
 
-    override fun getItemCount(): Int=dataSet.size
+    override fun getItemCount(): Int=currentList.size
 
 }
