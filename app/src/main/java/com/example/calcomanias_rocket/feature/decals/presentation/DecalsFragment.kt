@@ -17,6 +17,7 @@ import com.example.calcomanias_rocket.feature.decals.data.DecalDataRepository
 import com.example.calcomanias_rocket.feature.decals.data.local.DecalXmlLocalDataSource
 import com.example.calcomanias_rocket.feature.decals.data.remote.DecalMockRemoteDataSource
 import com.example.calcomanias_rocket.feature.decals.domain.DecalRepository
+import com.example.calcomanias_rocket.feature.decals.domain.GetDecalUseCase
 import com.example.calcomanias_rocket.feature.decals.domain.GetDecalsUseCase
 import com.example.calcomanias_rocket.feature.decals.presentation.Adapter.DecalsAdapter
 import com.google.gson.Gson
@@ -33,7 +34,8 @@ class DecalsFragment : Fragment() {
             GetDecalsUseCase(DecalDataRepository(
                 DecalXmlLocalDataSource(context, GsonSerialization(Gson())),
                 DecalMockRemoteDataSource()
-            ))
+            )),
+
         )
     }
 
@@ -56,7 +58,7 @@ class DecalsFragment : Fragment() {
     private fun setupView() {
         binding.recyclerView.apply {
             decalsAdapter.setEvent {
-
+                
             }
             adapter = decalsAdapter
         }
@@ -74,7 +76,7 @@ class DecalsFragment : Fragment() {
     }
 
     private fun showError(error: ErrorUiModel) {
-        // Implementa la lógica para mostrar el error en la interfaz de usuario
+
     }
 
     override fun onDestroyView() {
