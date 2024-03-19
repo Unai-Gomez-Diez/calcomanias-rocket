@@ -9,19 +9,19 @@ import com.example.calcomanias_rocket.app.serialization.JsonSerialization
 import com.example.calcomanias_rocket.feature.decals.domain.Decal
 
 class DecalXmlLocalDataSource(
-    private val context: Context,
+    private val context: Context?,
     private val jsonSerialization: JsonSerialization
 ): DecalLocalDataSource {
-    private val sharedPref = context.getSharedPreferences("Decals", Context.MODE_PRIVATE)
+    private val sharedPref = context?.getSharedPreferences("Decals", Context.MODE_PRIVATE)
     override fun setDecals(decals: List<Decal>): Either<ErrorApp, List<Decal>> {
         return try {
             decals.map { decals->
-                sharedPref.edit().putString(
+                sharedPref?.edit()?.putString(
                     decals.id,
                     jsonSerialization.toJson(decals, Decal::class.java)
                 )
             }
-            sharedPref.edit().apply()
+            sharedPref?.edit()?.apply()
             decals.right()
         }catch (e: Exception){
             return ErrorApp.DatabaseErrorApp.left()
@@ -30,7 +30,7 @@ class DecalXmlLocalDataSource(
 
     override fun getDecal(id: String): Either<ErrorApp, Decal> {
         return try {
-            val mapDecal = sharedPref.all as Map<String, String>
+            val mapDecal = sharedPref?.all as Map<String, String>
             val decal = mapDecal.values.map {
                 jsonSerialization.fromJson(it, Decal::class.java)
             }.find { decal ->
@@ -45,7 +45,7 @@ class DecalXmlLocalDataSource(
     override fun getDecals(): Either<ErrorApp, List<Decal>> {
         return try {
             val decals: MutableList<Decal> = mutableListOf()
-            val mapDecal = sharedPref.all as Map<String, String>
+            val mapDecal = sharedPref?.all as Map<String, String>
             mapDecal.values.map {string->
                 decals.add(jsonSerialization.fromJson(string, Decal::class.java))
             }
