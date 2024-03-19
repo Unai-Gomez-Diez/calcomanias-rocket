@@ -8,58 +8,65 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.example.calcomanias_rocket.R
 import com.example.calcomanias_rocket.app.errors.ErrorUiModel
 import com.example.calcomanias_rocket.databinding.FragmentDecalsBinding
+import com.example.calcomanias_rocket.feature.decals.data.local.DecalXmlLocalDataSource
+import com.example.calcomanias_rocket.feature.decals.domain.DecalRepository
+import com.example.calcomanias_rocket.feature.decals.domain.GetDecalsUseCase
 import com.example.calcomanias_rocket.feature.decals.presentation.Adapter.DecalsAdapter
 
-class DecalsFragment: Fragment() {
+class DecalsFragment : Fragment() {
 
     private var _binding: FragmentDecalsBinding? = null
     private val binding get() = _binding!!
     private val decalsAdapter = DecalsAdapter()
-    val viewModel by viewModels<DecalsViewModel>()
+    private val viewModel: DecalsViewModel by lazy {
+        DecalsViewModel(
+            GetDecalsUseCase(DecalXmlLocalDataSource())
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDecalsBinding.inflate(inflater, container, false)
-        setupView()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupView()
+        setupObserver()
+        viewModel.getDecals()
     }
 
-
     private fun setupView() {
-        binding.apply {
-            recyclerView.apply {
-                decalsAdapter.setEvent {
+        binding.recyclerView.apply {
+            decalsAdapter.setEvent {
 
-                }
-                adapter = decalsAdapter
             }
+            adapter = decalsAdapter
         }
     }
 
-    private fun setupObserver(){
-        val observer = Observer<DecalsViewModel.DecalUiState>{
-            if (it.error != null){
-                showError(it.error)
-            }else{
-                val listDecals = it.decals
-                decalsAdapter.submitList(listDecals)
+    private fun setupObserver() {
+        val observer = Observer<DecalsViewModel.DecalUiState> { state ->
+            if (state.error != null) {
+                showError(state.error)
+            } else {
+                state.decals?.let { decalsAdapter.submitList(it) }
             }
         }
         viewModel.uiDecal.observe(viewLifecycleOwner, observer)
     }
 
-    private fun showError(error: ErrorUiModel){
-       // binding.errorView.
+    private fun showError(error: ErrorUiModel) {
+        // Implementa la lógica para mostrar el error en la interfaz de usuario
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
