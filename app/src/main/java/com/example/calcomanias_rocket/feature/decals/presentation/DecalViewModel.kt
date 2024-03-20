@@ -7,7 +7,7 @@ import com.example.calcomanias_rocket.feature.decals.domain.GetDecalUseCase
 
 class DecalViewModel(private val getDecalUseCase: GetDecalUseCase)
     : ViewModel() {
-    private val _
+
     data class uiStateDecal(
         val decal: Decal? = null,
         val error: ErrorUiModel? = null,

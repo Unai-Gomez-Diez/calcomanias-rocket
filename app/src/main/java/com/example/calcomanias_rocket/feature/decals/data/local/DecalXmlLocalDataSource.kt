@@ -15,16 +15,17 @@ class DecalXmlLocalDataSource(
     private val sharedPref = context?.getSharedPreferences("Decals", Context.MODE_PRIVATE)
     override fun setDecals(decals: List<Decal>): Either<ErrorApp, List<Decal>> {
         return try {
-            decals.map { decals->
-                sharedPref?.edit()?.putString(
-                    decals.id,
-                    jsonSerialization.toJson(decals, Decal::class.java)
-                )
-            }
-            sharedPref?.edit()?.apply()
+            sharedPref?.edit()?.apply {
+                decals.forEach { decal ->
+                    putString(
+                        decal.id,
+                        jsonSerialization.toJson(decal, Decal::class.java)
+                    )
+                }
+            }?.apply()
             decals.right()
-        }catch (e: Exception){
-            return ErrorApp.DatabaseErrorApp.left()
+        } catch (e: Exception) {
+            ErrorApp.DatabaseErrorApp.left()
         }
     }
 

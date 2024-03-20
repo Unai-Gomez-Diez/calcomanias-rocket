@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/imagen"
             app:layout_constraintTop_toTopOf="@id/imagen"
-            tools:text="prueba imagen"/>
+        tools:text="prueba imagen"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

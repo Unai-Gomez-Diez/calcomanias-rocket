@@ -27,10 +27,7 @@ class DecalsViewModel(private val getDecalsUseCase: GetDecalsUseCase)
 
         private fun responseGetDecals(decals: List<Decal>){
             _decalUiState.postValue(
-                DecalUiState(
-                    decals = decals,
-                    isLoading = false
-                )
+                DecalUiState(decals = decals)
             )
         }
         private fun responseError(errorApp:ErrorApp)=

@@ -1,13 +1,10 @@
-package com.example.calcomanias_rocket.feature.decals.presentation.Adapter
+
+
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.calcomanias_rocket.R
 import com.example.calcomanias_rocket.feature.decals.domain.Decal
-import com.example.calcomanias_rocket.feature.decals.presentation.Adapter.DecalsViewHolder
 import com.example.calcomanias_rocket.feature.decals.presentation.DecalsDiffUtil
 
 class DecalsAdapter : androidx.recyclerview.widget.ListAdapter<Decal,DecalsViewHolder>(DecalsDiffUtil()){
